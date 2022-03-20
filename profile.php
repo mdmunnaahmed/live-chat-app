@@ -27,13 +27,13 @@ include_once "header.php"
                 ?>
                 <div class="d-flex flex-wrap align-items-center justify-content-between">
                     <div class="user-profile d-flex flex-wrap">
-                        <div class="user-thumb"><img src="assets/images/users/1.png" alt="user"></div>
+                        <div class="user-thumb"><img src="assets/images/users/<?php echo $row['img'] ?>" alt="user"></div>
                         <div class="user-content">
                             <h6 class="name"><?php echo $row['fname'] . " " . $row['lname']; ?></h6>
                             <span class="status text--success"><?php echo $row['status'] ?></span>
                         </div>
                     </div>
-                    <a href="#0" class="btn btn--danger btn--sm"></a>
+                    <a href="#0" class="btn btn--danger btn--sm">Logout</a>
                 </div>
             </div>
             <div class="card-body">
@@ -44,18 +44,7 @@ include_once "header.php"
                     </div>
                 </form>
                 <ul class="chat-list">
-                    <li>
-                        <div class="user-profile-wrapper d-flex flex-wrap justify-content-between align-items-center">
-                            <div class="user-profile msg-profile d-flex flex-wrap">
-                                <div class="user-thumb"><img src="assets/images/users/1.png" alt="user"></div>
-                                <div class="user-content">
-                                    <h6 class="name">Munna Ahmed</h6>
-                                    <span class="msg">This is the last message by the user.</span>
-                                </div>
-                            </div>
-                            <div class="active-dot online"></div>
-                        </div>
-                    </li>
+
                 </ul>
             </div>
         </div>
@@ -64,15 +53,51 @@ include_once "header.php"
 
     <!-- jQuery library -->
     <script src="assets/js/lib/jquery-3.6.0.min.js"></script>
-
     <!-- Bootstrap 5 js -->
     <script src="assets/js/lib/bootstrap.min.js"></script>
-
     <!-- Pluglin Link -->
     <script src="assets/js/lib/slick.min.js"></script>
-
     <!-- Main js -->
     <script src="assets/js/main.js"></script>
+
+    <script>
+        const chatList = document.querySelector(".chat-list");
+        const searchBar = document.querySelector(".search-wrapper input");
+
+        setInterval(() => {
+            let xhr = new XMLHttpRequest();
+            xhr.open("GET", "php/profile2.php", true);
+
+            xhr.onload = () => {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        let data = xhr.response;
+                        chatList.innerHTML = data;
+                    }
+                }
+            };
+            xhr.send();
+        }, 1000);
+
+
+        searchBar.onkeyup = () => {
+            let xhr = new XMLHttpRequest();
+            let searchTerm = searchBar.value;
+            xhr.open("POST", "php/search-user.php", true);
+
+            xhr.onload = () => {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        let data = xhr.response;
+                        chatList.innerHTML = data;
+                    }
+                }
+            };
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.send("searchTerm=" + searchTerm);
+        }
+    </script>
+
 </body>
 
 </html>
