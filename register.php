@@ -1,25 +1,4 @@
-<!-- meta tags and other links -->
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat with your friends</title>
-    <link rel="icon" type="image/png" href="assets/images/favicon.png" sizes="16x16">
-    <!-- bootstrap 5  -->
-    <link rel="stylesheet" href="assets/css/lib/bootstrap.min.css">
-    <!-- Icon Link  -->
-    <link rel="stylesheet" href="assets/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/line-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/lib/animate.css">
-
-    <!-- Plugin Link -->
-    <link rel="stylesheet" href="assets/css/lib/slick.css">
-
-    <!-- Main css -->
-    <link rel="stylesheet" href="assets/css/main.css">
-</head>
+<?php include_once "header.php" ?>
 
 <body>
     <!-- Overlay -->
@@ -54,8 +33,8 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="profile-pic" class="form-label">Profile Picture</label>
-                            <input name="profile-pic" type="file" class="form-control " id="profile-pic">
+                            <label for="img" class="form-label">Profile Picture</label>
+                            <input name="img" type="file" class="form-control " id="img">
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -100,6 +79,33 @@
             } else {
                 passFld.type = "password";
             }
+        };
+
+        // Form Submission
+        const form = document.querySelector(".account-form");
+        const submitBtn = document.querySelector(".submitBtn");
+        const errorTxt = document.querySelector(".errorTxt");
+
+        form.onsubmit = (e) => {
+            e.preventDefault();
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "php/signup.php", true);
+
+            xhr.onload = () => {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        let data = xhr.response;
+                        if (data == "Success") {
+                            location.href = "profile.php";
+                        } else {
+                            errorTxt.textContent = data;
+                            errorTxt.style.display = "block";
+                        }
+                    }
+                }
+            };
+            let formData = new FormData(form);
+            xhr.send(formData);
         };
     </script>
 </body>

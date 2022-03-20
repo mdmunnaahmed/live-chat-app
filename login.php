@@ -2,24 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat with your friends</title>
-    <link rel="icon" type="image/png" href="assets/images/favicon.png" sizes="16x16">
-    <!-- bootstrap 5  -->
-    <link rel="stylesheet" href="assets/css/lib/bootstrap.min.css">
-    <!-- Icon Link  -->
-    <link rel="stylesheet" href="assets/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/line-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/lib/animate.css">
-
-    <!-- Plugin Link -->
-    <link rel="stylesheet" href="assets/css/lib/slick.css">
-
-    <!-- Main css -->
-    <link rel="stylesheet" href="assets/css/main.css">
-</head>
+<?php include_once "header.php" ?>
 
 <body>
     <!-- Overlay -->
@@ -32,6 +15,7 @@
                 <h4 class="title m-0">Why waiting? Chat fast. Goo...</h4>
             </div>
             <div class="card-body">
+                <p class="errorTxt">This is Error !</p>
                 <form action="#" class="account-form row gy-3">
                     <div class="col-md-12">
                         <div class="form-group">
@@ -49,7 +33,7 @@
                         </div>
                     </div>
                     <div class="col-12">
-                        <button type="submit" class="cmn--btn btn--base w-100">Login Account</button>
+                        <button type="submit" class="cmn--btn btn--base w-100 submitBtn">Login Account</button>
                     </div>
                 </form>
                 <p class="text-center mt-4">Don't Have any Account? <a class="text--base fw-bold ms-2" href="register.php">Register
@@ -80,6 +64,35 @@
             } else {
                 passFld.type = "password";
             }
+        };
+
+
+
+        // Form Submission
+        const form = document.querySelector(".account-form");
+        const submitBtn = document.querySelector(".submitBtn");
+        const errorTxt = document.querySelector(".errorTxt");
+
+        form.onsubmit = (e) => {
+            e.preventDefault();
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "php/signin.php", true);
+
+            xhr.onload = () => {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        let data = xhr.response;
+                        if (data == "Success") {
+                            location.href = "profile.php";
+                        } else {
+                            errorTxt.textContent = data;
+                            errorTxt.style.display = "block";
+                        }
+                    }
+                }
+            };
+            let formData = new FormData(form);
+            xhr.send(formData);
         };
     </script>
 </body>

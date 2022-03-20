@@ -1362,6 +1362,7 @@ select.style--dark option {
     border-radius: 5px;
     background: #28c76f2d;
     margin: 5px 0;
+    display: none;
 }
 
 /*# sourceMappingURL=main.css.map */
