@@ -61,8 +61,10 @@
         passToggler.onclick = () => {
             if (passFld.type == "password") {
                 passFld.type = "text";
+                passFld.focus();
             } else {
                 passFld.type = "password";
+                passFld.focus();
             }
         };
 
