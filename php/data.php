@@ -4,7 +4,7 @@
 while ($row = mysqli_fetch_assoc($query)) {
     $output .= '
     <li>
-    <div class="user-profile-wrapper d-flex flex-wrap justify-content-between align-items-center">
+    <a href="chat.php?user_id=' . $row['unique_id'] . '" class="user-profile-wrapper d-flex flex-wrap justify-content-between align-items-center">
         <div class="user-profile msg-profile d-flex flex-wrap">
             <div class="user-thumb"><img src="assets/images/users/' . $row['img'] . '" alt="user"></div>
             <div class="user-content">
@@ -13,7 +13,7 @@ while ($row = mysqli_fetch_assoc($query)) {
             </div>
         </div>
         <div class="active-dot online"></div>
-    </div>
+    </a>
 </li>
     ';
 }
