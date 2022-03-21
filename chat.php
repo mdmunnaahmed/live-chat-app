@@ -140,13 +140,31 @@ if (mysqli_num_rows($query) > 0) {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
                         let data = xhr.response;
-
+                        inutFeild.value = "";
                     }
                 }
             };
             let formData = new FormData(form);
             xhr.send(formData);
         }
+
+        setInterval(() => {
+            let xhr = new XMLHttpRequest();
+            xhr.open("GET", "php/profile2.php", true);
+
+            xhr.onload = () => {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        let data = xhr.response;
+                        if (!searchBar.classList.contains("active")) {
+                            chatList.innerHTML = data;
+                        }
+                    }
+                }
+            };
+            let formData = new FormData(form);
+            xhr.send(formData);
+        }, 1000);
     </script>
 </body>
 
