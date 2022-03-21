@@ -36,65 +36,8 @@ if (mysqli_num_rows($query) > 0) {
             </div>
             <div class="card-body">
                 <ul class="chat-list">
-                    <li>
-                        <div class="user-profile msg-item incoming-msg d-flex flex-wrap">
-                            <div class="user-thumb"><img src="assets/images/users/1.png" alt="user"></div>
-                            <div class="user-content">
-                                <span class="msg">This is the last message by the user.</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="user-profile msg-item outgoing-msg d-flex flex-wrap">
-                            <div class="user-content">
-                                <span class="msg">This is the last message by the user.This is the last message by the
-                                    user.This is the last message by the user.This is the last message by the user.</span>
-                            </div>
-                            <div class="user-thumb"><img src="assets/images/users/1.png" alt="user"></div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="user-profile msg-item incoming-msg d-flex flex-wrap">
-                            <div class="user-thumb"><img src="assets/images/users/1.png" alt="user"></div>
-                            <div class="user-content">
-                                <span class="msg">This is the last message by the user.</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="user-profile msg-item outgoing-msg d-flex flex-wrap">
-                            <div class="user-content">
-                                <span class="msg">This is the last message by the user.This is the last message by the
-                                    user.This is the last message by the user.This is the last message by the user.</span>
-                            </div>
-                            <div class="user-thumb"><img src="assets/images/users/1.png" alt="user"></div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="user-profile msg-item incoming-msg d-flex flex-wrap">
-                            <div class="user-thumb"><img src="assets/images/users/1.png" alt="user"></div>
-                            <div class="user-content">
-                                <span class="msg">This is the last message by the user.</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="user-profile msg-item outgoing-msg d-flex flex-wrap">
-                            <div class="user-content">
-                                <span class="msg">This is the last message by the user.This is the last message by the
-                                    user.This is the last message by the user.This is the last message by the user.</span>
-                            </div>
-                            <div class="user-thumb"><img src="assets/images/users/1.png" alt="user"></div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="user-profile msg-item incoming-msg d-flex flex-wrap">
-                            <div class="user-thumb"><img src="assets/images/users/1.png" alt="user"></div>
-                            <div class="user-content">
-                                <span class="msg">This is the last message by the user.</span>
-                            </div>
-                        </div>
-                    </li>
+                    
+
                 </ul>
             </div>
             <div class="card-footer">
@@ -127,7 +70,8 @@ if (mysqli_num_rows($query) > 0) {
     <script>
         const form = document.querySelector('.msg-send-form'),
             inutFeild = document.querySelector('.msg-send-form input'),
-            sendBtn = document.querySelector('.msg-send-form button');
+            sendBtn = document.querySelector('.msg-send-form button'),
+            chatBox = document.querySelector('.chat-list');
         form.onsubmit = (e) => {
             e.preventDefault();
         }
@@ -150,15 +94,13 @@ if (mysqli_num_rows($query) > 0) {
 
         setInterval(() => {
             let xhr = new XMLHttpRequest();
-            xhr.open("GET", "php/profile2.php", true);
+            xhr.open("POST", "php/get-chat.php", true);
 
             xhr.onload = () => {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
                         let data = xhr.response;
-                        if (!searchBar.classList.contains("active")) {
-                            chatList.innerHTML = data;
-                        }
+                        chatBox.innerHTML = data;
                     }
                 }
             };
