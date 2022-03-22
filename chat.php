@@ -36,7 +36,7 @@ if (mysqli_num_rows($query) > 0) {
             </div>
             <div class="card-body">
                 <ul class="chat-list">
-                    
+
 
                 </ul>
             </div>
@@ -69,9 +69,10 @@ if (mysqli_num_rows($query) > 0) {
 
     <script>
         const form = document.querySelector('.msg-send-form'),
-            inutFeild = document.querySelector('.msg-send-form input'),
+            inutFeild = document.querySelector('.msg-send-form form--control'),
             sendBtn = document.querySelector('.msg-send-form button'),
             chatBox = document.querySelector('.chat-list');
+
         form.onsubmit = (e) => {
             e.preventDefault();
         }

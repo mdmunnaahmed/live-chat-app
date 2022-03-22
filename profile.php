@@ -63,7 +63,11 @@ include_once "header.php"
     <script>
         const chatList = document.querySelector(".chat-list");
         const searchBar = document.querySelector(".search-wrapper input");
+        const searchForm = document.querySelector(".search-wrapper");
 
+        searchForm.onsubmit = (e) => {
+            e.preventDefault();
+        }
         searchBar.onkeyup = () => {
             let searchTerm = searchBar.value;
             if (searchTerm != "") {
